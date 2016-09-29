@@ -1,6 +1,4 @@
-
-
-var viewAngle = 75;
+  var viewAngle = 75;
 var aspectRatio = window.innerWidth / window.innerHeight;
 var near = 0.1;
 var far = 400000;
@@ -15,7 +13,6 @@ var mouseX = 0;
 var mouseY = 0;
 
 // data
-
 var scale = 150;
 
 var maxXcordinate = 0;
@@ -60,12 +57,10 @@ function init() {
     createCube();
 
     pointLight.position.z = 10;
+    camera.position.z = 200;
 
     scene.add(group);
     scene.add(pointLight);
-    camera.position.z = 200;
-    // camera.position.x = rangeX/scale/2;
-    // camera.position.y = rangeY/scale/2;
     scene.add(camera);
 
     console.log(rangeX, rangeY);
@@ -97,15 +92,10 @@ function createCube() {
 
       if (graffitData[i][9] != null && graffitData[i][9] != null) {
         cube = new THREE.Mesh(geometry, material);
-        // cube.position.x = Math.random() * 2000 - 1000;
-        // cube.position.y = Math.random() * 2000 - 1000;
         cube.position.x = (parseInt(graffitData[i][9]) - minXcordinate)/scale - rangeX/scale/2;
         cube.position.y = (parseInt(graffitData[i][10]) - minYcordinate)/scale - rangeY/scale/2;
         cube.position.z = 0;
 
-
-        // cube.scale.z = Math.random() * 30;
-        // cube.scale.set(Math.random() +, Math.random() +, Math.random() +);
         cube.updateMatrix();
         group.add(cube);
       }
