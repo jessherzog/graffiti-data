@@ -1,4 +1,4 @@
-  var viewAngle = 75;
+var viewAngle = 75;
 var aspectRatio = window.innerWidth / window.innerHeight;
 var near = 0.1;
 var far = 400000;
@@ -24,18 +24,18 @@ var rangeX;
 var rangeY;
 
 for (var i = 0; i < graffitData.length; i++) {
-  if (graffitData[i][9] != null && graffitData[i][9] != null) {
-    if (maxXcordinate < parseInt(graffitData[i][9])) {
-      maxXcordinate = parseInt(graffitData[i][9]);
+  if (graffitData[i][1] != null && graffitData[i][2] != null) {
+    if (maxXcordinate < parseInt(graffitData[i][1])) {
+      maxXcordinate = parseInt(graffitData[i][1]);
     }
-    if (minXcordinate > parseInt(graffitData[i][9])) {
-      minXcordinate = parseInt(graffitData[i][9]);
+    if (minXcordinate > parseInt(graffitData[i][1])) {
+      minXcordinate = parseInt(graffitData[i][1]);
     }
-    if (maxYcordinate < parseInt(graffitData[i][10])) {
-      maxYcordinate = parseInt(graffitData[i][10]);
+    if (maxYcordinate < parseInt(graffitData[i][2])) {
+      maxYcordinate = parseInt(graffitData[i][2]);
     }
-    if (minYcordinate > parseInt(graffitData[i][10])) {
-      minYcordinate = parseInt(graffitData[i][10]);
+    if (minYcordinate > parseInt(graffitData[i][2])) {
+      minYcordinate = parseInt(graffitData[i][2]);
     }
   }
 }
@@ -66,11 +66,7 @@ function init() {
     console.log(rangeX, rangeY);
 
     // console.log(graffitData);
-    // console.log(graffitData[600]);
-    // console.log(graffitData[600][8]);
-    // console.log(graffitData[600][9]);
-    // console.log(graffitData[600][10]);
-
+    // console.log(graffitData[600])0
 }
 
 function createCube() {
@@ -90,10 +86,10 @@ function createCube() {
 
     for (var i = 0; i < graffitData.length; i++) {
 
-      if (graffitData[i][9] != null && graffitData[i][9] != null) {
+      if (graffitData[i][1] != null && graffitData[i][2] != null) {
         cube = new THREE.Mesh(geometry, material);
-        cube.position.x = (parseInt(graffitData[i][9]) - minXcordinate)/scale - rangeX/scale/2;
-        cube.position.y = (parseInt(graffitData[i][10]) - minYcordinate)/scale - rangeY/scale/2;
+        cube.position.x = (parseInt(graffitData[i][1]) - minXcordinate)/scale - rangeX/scale/2;
+        cube.position.y = (parseInt(graffitData[i][2]) - minYcordinate)/scale - rangeY/scale/2;
         cube.position.z = 0;
 
         cube.updateMatrix();

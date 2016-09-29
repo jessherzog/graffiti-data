@@ -5,4 +5,6 @@ A data visualization based on [DSNY Graffiti Reports]( https://data.cityofnewyor
 
 Uses [three.js](https://threejs.org/) for 3d visualization and [leaflet.js](http://leafletjs.com/) for geographical mapping of data.
 
-![demo1](img/demo1.png)
+## [0x01](https://jessherzog.github.io/graffiti-data/three/01/index.html)
+
+![0x01](img/demo1.png)
