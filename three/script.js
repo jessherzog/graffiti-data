@@ -16,7 +16,7 @@ var mouseY = 0;
 
 // data
 
-var scale = 400;
+var scale = 150;
 
 var maxXcordinate = 0;
 var minXcordinate = 999999999;
@@ -50,24 +50,23 @@ function init() {
     window.addEventListener('resize', onWindowResize, false);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    pointLight.position.x = 10;
-    pointLight.position.y = 50;
-    pointLight.position.z = 130;
-
-    createCube();
-    console.log("minXcordinate", minXcordinate, "maxXcordinate", maxXcordinate);
-    console.log("minYcordinate", minYcordinate, "maxYcordinate", maxYcordinate);
 
     rangeX = maxXcordinate - minXcordinate;
     rangeY = maxYcordinate - minYcordinate;
 
+    console.log("minXcordinate", minXcordinate, "maxXcordinate", maxXcordinate);
+    console.log("minYcordinate", minYcordinate, "maxYcordinate", maxYcordinate);
+
+    createCube();
+
+    pointLight.position.z = 10;
+
     scene.add(group);
     scene.add(pointLight);
-    camera.position.z = 300;
-    camera.position.x = rangeX/2/scale;
-    camera.position.y = rangeY/2/scale;
+    camera.position.z = 200;
+    // camera.position.x = rangeX/scale/2;
+    // camera.position.y = rangeY/scale/2;
     scene.add(camera);
-
 
     console.log(rangeX, rangeY);
 
@@ -76,7 +75,6 @@ function init() {
     // console.log(graffitData[600][8]);
     // console.log(graffitData[600][9]);
     // console.log(graffitData[600][10]);
-
 
 }
 
@@ -101,22 +99,18 @@ function createCube() {
         cube = new THREE.Mesh(geometry, material);
         // cube.position.x = Math.random() * 2000 - 1000;
         // cube.position.y = Math.random() * 2000 - 1000;
-        cube.position.x = (parseInt(graffitData[i][9]) - minXcordinate)/scale;
-        cube.position.y = (parseInt(graffitData[i][10]) - minYcordinate)/scale;
+        cube.position.x = (parseInt(graffitData[i][9]) - minXcordinate)/scale - rangeX/scale/2;
+        cube.position.y = (parseInt(graffitData[i][10]) - minYcordinate)/scale - rangeY/scale/2;
         cube.position.z = 0;
-
-        // console.log(parseInt(graffitData[i][9]), minXcordinate, parseInt(graffitData[i][9]) - minXcordinate);
 
 
         // cube.scale.z = Math.random() * 30;
-        // cube.scale.set(Math.random(), Math.random(), 1.0);
+        // cube.scale.set(Math.random() +, Math.random() +, Math.random() +);
         cube.updateMatrix();
         group.add(cube);
       }
 
     }
-
-    // console.log(group);
 }
 
 function animatedRender() {
@@ -124,10 +118,8 @@ function animatedRender() {
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
     renderer.render(scene, camera);
-    // console.log("mouseX: " + mouseX);
-    // console.log("mouseY: " + mouseY);
-    camera.rotation.y -= (mouseX - camera.position.x) * 0.00005;
-    camera.rotation.x += (-mouseY - camera.position.y) * 0.0001;
+    camera.rotation.y -= mouseX * 0.00005;
+    camera.rotation.x -= mouseY * 0.00005;
 
     var d = new Date();
     var n = d.getMilliseconds();
