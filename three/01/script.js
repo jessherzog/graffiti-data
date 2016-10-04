@@ -84,12 +84,6 @@ function init() {
 function createCubes() {
 
     var geometry = new THREE.BoxGeometry(1, 1, 1);
-    for (var i = 0; i < geometry.faces.length; i += 2) {
-        // var hex = Math.random()+0.5 * 0xCCCCCC;
-        var hex =  0xCCCCCC + i/geometry.faces.length;
-        geometry.faces[i].color.setHex(hex);
-        geometry.faces[i + 1].color.setHex(hex);
-    }
     var material = new THREE.MeshStandardMaterial({
         vertexColors: THREE.FaceColors,
         wireframe: false
