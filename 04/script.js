@@ -59,6 +59,7 @@ function init() {
     console.log("minYcordinate", minYcordinate, "maxYcordinate", maxYcordinate);
 
     createCubes();
+    createLines();
 
     pointLight = new THREE.PointLight(0xFFFFFF);
     pointLight.position.z = 10;
@@ -81,6 +82,33 @@ function init() {
     // console.log(graffitData[600])0
 }
 
+function createLines() {
+  var geometry = new THREE.BufferGeometry();
+	var material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors });
+	var positions = new Float32Array( graffitData.length * 3 );
+	var colors = new Float32Array( graffitData.length * 3 );
+
+  for ( var i = 0; i < graffitData.length; i ++ ) {
+			var x = ((parseInt(graffitData[i][1]) - minXcordinate) - middleX/2)/scale;
+			var y = ((parseInt(graffitData[i][2]) - minYcordinate) - middleY/2)/scale;
+			var z = Math.random()*20 - 20;
+			// positions
+			positions[ i * 3 ] = x;
+			positions[ i * 3 + 1 ] = y;
+			positions[ i * 3 + 2 ] = z;
+			// colors
+			colors[ i * 3 ] = 0.8;
+			colors[ i * 3 + 1 ] = 0.8;
+			colors[ i * 3 + 2 ] = 0.8;
+		}
+
+    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+		geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+    geometry.computeBoundingSphere();
+    mesh1 = new THREE.Line( geometry, material );
+		scene.add( mesh1 );
+}
+
 function createCubes() {
 
     var geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -95,7 +123,7 @@ function createCubes() {
       cube = new THREE.Mesh(geometry, material);
       cube.position.x = ((parseInt(graffitData[i][1]) - minXcordinate) - middleX/2)/scale;
       cube.position.y = ((parseInt(graffitData[i][2]) - minYcordinate) - middleY/2)/scale;
-      cube.position.z = 0;
+      cube.position.z = Math.random()*20;
 
       cube.updateMatrix();
       group.add(cube);
@@ -105,6 +133,8 @@ function createCubes() {
 
 function animatedRender() {
     requestAnimationFrame(animatedRender);
+
+    // just for fly controls
     var delta = clock.getDelta();
     controls.update(delta);
 

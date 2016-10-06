@@ -16,6 +16,9 @@ var middleY;
 var controls;
 var clock = new THREE.Clock();
 
+// for storing variables that need to refered to later
+var groupNotebook = [];
+
 init();
 animatedRender();
 
@@ -62,7 +65,7 @@ function init() {
 
     pointLight = new THREE.PointLight(0xFFFFFF);
     pointLight.position.z = 10;
-    camera.position.z = 200;
+    camera.position.z = 100;
 
     controls = new THREE.FlyControls( camera );
     controls.movementSpeed = 40;
@@ -71,7 +74,7 @@ function init() {
     controls.autoForward = false;
     controls.dragToLook = false;
 
-    scene.fog = new THREE.Fog(0xffffff, near, 600);
+    scene.fog = new THREE.Fog(0xffffff, near, 400);
 
     scene.add(group);
     scene.add(pointLight);
@@ -85,6 +88,8 @@ function createCubes() {
 
     var geometry = new THREE.BoxGeometry(1, 1, 1);
     var material = new THREE.MeshStandardMaterial({
+        opacity: 0.4,
+        transparent: true,
         vertexColors: THREE.FaceColors,
         wireframe: false
     });
@@ -95,20 +100,44 @@ function createCubes() {
       cube = new THREE.Mesh(geometry, material);
       cube.position.x = ((parseInt(graffitData[i][1]) - minXcordinate) - middleX/2)/scale;
       cube.position.y = ((parseInt(graffitData[i][2]) - minYcordinate) - middleY/2)/scale;
-      cube.position.z = 0;
+      var positionZ = Math.random()*30;
+      cube.position.z = positionZ;
+
+      cube.rotation.x = Math.PI * Math.random();
+      cube.rotation.y = Math.PI * Math.random();
+      cube.rotation.z = Math.PI * Math.random();
+
+      groupNotebook.push({
+        posZ : positionZ
+      });
 
       cube.updateMatrix();
       group.add(cube);
 
     }
+
 }
 
 function animatedRender() {
     requestAnimationFrame(animatedRender);
     var delta = clock.getDelta();
-    controls.update(delta);
 
+    // fly over control
+    controls.update(delta);
     renderer.render(scene, camera);
+
+    // get current date in milliseconds
+    var t = Date.now();
+
+    // update cubes
+    for (var i = 0; i < group.children.length; i++) {
+
+      group.children[i].rotation.x += 0.01;
+      group.children[i].rotation.y += 0.01;
+      group.children[i].rotation.y += 0.01;
+
+      group.children[i].position.z = groupNotebook[i].posZ * Math.abs(Math.cos(t/2000));
+    }
 
     var skyColor = new THREE.Color(1.0, 1.0, 1.0);
     renderer.setClearColor(skyColor, 1.0);
