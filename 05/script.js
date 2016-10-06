@@ -153,8 +153,8 @@ function onWindowResize() {
 var onOrientationChange = function(data) {
   console.log("DEVICE DATA UPDATE!", data);
 
-  camera.rotation.x = data.alpha/300;
-  camera.rotation.y = data.beta/300;
+  camera.rotation.y = data.alpha/300;
+  camera.rotation.x = data.beta/300;
   camera.rotation.z = data.gamma/300;
 
   var output = document.getElementById("data-output");
