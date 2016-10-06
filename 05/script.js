@@ -156,6 +156,9 @@ var onOrientationChange = function(data) {
   camera.rotation.x = data.alpha/300;
   camera.rotation.y = data.beta/300;
   camera.rotation.z = data.gamma/300;
+
+  var output = document.getElementById("data-output");
+  output.innerHTML = "ALPHA: " + data.alpha + "<br>BETA: " + data.beta + "<br>GAMMA: " +  data.gamma;
 }
 
 if(window.DeviceOrientationEvent) {
