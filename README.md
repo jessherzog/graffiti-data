@@ -15,7 +15,9 @@ Uses [three.js](https://threejs.org/) for 3d visualization.
 ![0x03](img/03.png)
 
 ## [0x04](https://jessherzog.github.io/graffiti-data/04/index.html) - Data Cocoon
+## [0x05](https://jessherzog.github.io/graffiti-data/05/index.html) - Sound Data Cocoon
 ![0x04](img/04.png)
 
-## [0x05](https://jessherzog.github.io/graffiti-data/05/index.html) - I know your Data Device
-![0x05](img/05.png)
+
+## [0x06](https://jessherzog.github.io/graffiti-data/06/index.html) - I know your Data Device
+![0x06](img/06.png)
